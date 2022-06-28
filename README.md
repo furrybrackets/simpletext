@@ -110,7 +110,7 @@ user@comp$ npx simple build
 >
 > `false`: Loads one JS file for all pages.
 
-> `jsfile`
+> # `jsfile`
 >
 > Used when `universal-js` is enabled.
 >
