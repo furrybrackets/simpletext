@@ -1,0 +1,12 @@
+{
+    "name": "my-content",
+    "version": "1.0.0",
+    "description": "My amazing website.",
+    "main": "src/index.md",
+    "scripts": {
+        "build": "simple build",
+        "start": "simple dev"
+    },
+    "author": "John Doe",
+    "license": "MIT"
+}

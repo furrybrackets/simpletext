@@ -1,0 +1,1 @@
+export default ['markup', 'js', 'universal-js', 'jsfile', 'markdown-spec', 'css', 'assets', 'favicon', 'routing', 'templates', 'transpile', 'target'];
