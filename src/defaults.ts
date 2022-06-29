@@ -5,9 +5,9 @@ const Defaults = {
     jsfile: "default", // path to the javascript file
     "markdown-spec": "simplemark", // simplemark | github | commonmark
     css: "default", // load default css
-    assets: "assets", // path to the assets folder
+    assets: "default", // path to the assets folder
     favicon: "default", // path to the favicon
-    routing: "simple", // default routing options,
+    routing: "standard", // default routing options,
     templates: "none", // template engine
     transpile: "true", // should transpile javascript
     target: "es5"

@@ -1,9 +1,9 @@
-import { readFileSync } from 'fs-extra'
+import fs from 'fs-extra'
 import vars from './vars.js';
 import Coalesce from './coalesce.js';
 import Defaults from './defaults.js';
 export default function ReadConfig(path: string): object {
-    let file: string = readFileSync(path, 'utf8');
+    let file: string = fs.readFileSync(path, 'utf8');
     let pkgConfig: object = JSON.parse(file);
     // remove unnecessary keys
     for (let key in pkgConfig) {

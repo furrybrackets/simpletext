@@ -2,15 +2,15 @@ import chalk from 'chalk';
 
 export default class Logger {
     public static info(message: string): void {
-        console.log(`${chalk.blue('(info)')} ${message}`);
+        console.info(`${chalk.blue('(info)')} ${message}`);
     };
 
     public static warn(message: string): void {
-        console.log(`${chalk.yellow('(warn)')} ${message}`);
+        console.warn(`${chalk.yellow('(warn)')} ${message}`);
     };
 
     public static error(message: string): void {
-        console.log(`${chalk.red('(error)')} ${message}`);
+        console.error(`${chalk.red('(error)')} ${message}`);
     }
 
     public static success(message: string): void {
