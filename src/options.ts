@@ -11,9 +11,11 @@ export const Options = {
     templates: ["none", "handlebars", "mustache", "pug"],
     transpile: ["true", "false"],
     target: ["es5", "es6", "es2015", "es2016", "es2017", "es2018", "es2019", "es2020", "esnext"],
-    navigation: ["STRING"],
+    navigation: ["default"],
     codeTheme: ["dark", "light", "monokai", "default"],
 }
 
 // options with PATH
 export const DynamicOptions = ["assets", "favicon", "jsfile", "css"];
+
+export const ParsedOptions = ["navigation"];
