@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs-extra";
 import { Routes, Route, RouteSpecifier } from "./routes";
+import { CompileMD, SpecificationMD } from "../md/md"
 
 export function RegisterJIT(directory: string, config: object): JITInstance {
     return new JITInstance(directory, config);
@@ -41,7 +42,8 @@ class JITInstance {
         // run the compiler
         // return the compiled output
         while (this.changes.length > 0) {
-            // TODO: implement
+            let change = this.changes.shift();
+            this.doChange(change, this.changes);
         }
         return this.routes;
     }
@@ -153,4 +155,26 @@ class JITInstance {
         });
         return true;
     };
+
+    compile(RouteGen: RouteSpecifier, source: string, config: any, path: string): void {
+        // create new compiler
+        let compiled;
+        if (RouteGen.markup) {
+            const compiler = new CompileMD({
+                source: source,
+                path: path
+            }, RouteGen.markdown ? RouteGen.markdown : 'commonmark', config);
+            compiled = compiler.compile();
+        } else {
+            const compiler = new HTMLCompiler({
+                source: source,
+                path: path
+            });
+            compiled = compiler.compile();
+        };
+        if (compiled.err) {
+            throw new Error(compiled.err);
+        }
+        return compiled.output;
+    }
 }

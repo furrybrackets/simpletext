@@ -2,21 +2,21 @@
 import CommonMark from './commonmark.js';
 // import GitHub from './github.js';
 
-export type Specification = 'github' | 'simplemark' | 'commonmark';
+export type SpecificationMD = 'github' | 'simplemark' | 'commonmark';
 export interface CodeSource {
     path: string,
     source: string
 }
 
 
-export class Compile {
-    private readonly spec: Specification;
+export class CompileMD {
+    private readonly spec: SpecificationMD;
     private readonly src: string;
     private readonly path: string;
     private html: string;
     private readonly options: any;
 
-    constructor(code: CodeSource, specification: Specification, options: any) {
+    constructor(code: CodeSource, specification: SpecificationMD, options: any) {
         this.spec = specification;
         this.src = code.source;
         this.path = code.path;

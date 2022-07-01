@@ -1,5 +1,3 @@
-import { basename } from "path";
-
 export type Route = {
   path: string;
   type: RouteSpecifier;
@@ -34,7 +32,7 @@ export class Routes {
     let router = new Map();
     if (routes) {
         for (let i = 0; i<routes.length; i++) {
-            router.set(basename(routes[i].path), routes[i]);
+            router.set(routes[i].path, routes[i]);
         }
     };
     this.routes = router;
