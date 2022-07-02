@@ -43,7 +43,7 @@ class JITInstance {
         // return the compiled output
         while (this.changes.length > 0) {
             let change = this.changes.shift();
-            this.doChange(change, this.changes);
+            this.doChange(change);
         }
         return this.routes;
     }
@@ -156,7 +156,7 @@ class JITInstance {
         return true;
     };
 
-    compile(RouteGen: RouteSpecifier, source: string, config: any, path: string): void {
+    compile(RouteGen: RouteSpecifier, source: string, config: any, path: string) {
         // create new compiler
         let compiled;
         if (RouteGen.markup) {
@@ -166,15 +166,66 @@ class JITInstance {
             }, RouteGen.markdown ? RouteGen.markdown : 'commonmark', config);
             compiled = compiler.compile();
         } else {
-            const compiler = new HTMLCompiler({
-                source: source,
-                path: path
-            });
-            compiled = compiler.compile();
+            // don't feel like implementing a compiler for html
+            throw new Error("HTML is not supported yet.");
         };
         if (compiled.err) {
             throw new Error(compiled.err);
-        }
+        };
         return compiled.output;
+    };
+
+    doChange(change: any): void {
+        // we need the changes array to check for file changes
+        // if the change is a page, we need to render it, else we need to check for file changes
+        switch (change.type) {
+            case "page":
+                // there three possible events for a page: update, delete, create
+                switch (change.FSEvent) {
+                    case "update":
+                        // update the page
+                        this.__dealPageUpdate(change);
+                        break;
+                    case "delete":
+                        // delete the page
+                        this.__dealPageDelete(change);
+                        break;
+                    case "create":
+                        // create the page
+                        this.__dealPageCreate(change);
+                        break;
+                    default:
+                        throw new Error("Invalid FSEvent! Must be update, delete, or create.");
+                };
+                break;
+            // type is file extension otherwise
+            default:
+                // there are three possible events for a file: update, delete, create
+                switch (change.FSEvent) {
+                    case "update":
+                        // update the file
+                        this.__dealFileUpdate(change);
+                        break;
+                    case "delete":
+                        // delete the file
+                        this.__dealFileDelete(change);
+                        break;
+                    case "create":
+                        // create the file
+                        this.__dealFileCreate(change);
+                        break;
+                    default:
+                        throw new Error("Invalid FSEvent! Must be update, delete, or create.");
+                };
+                break;
+        }
+    }
+
+    private __dealPageUpdate(change: any): void {
+        // on update, just render the page
+        let page = this.pages.find((page) => page.path === change.path);
+        // there will always be a page, no need to check
+        let compiled = this.compile(this.config.route, page.data, this.config, page.path);
+        this.routes.set(page.path, /* fail */ false);
     }
 }

@@ -37,4 +37,16 @@ export class Routes {
     };
     this.routes = router;
   };
+
+    add(route: Route): void {
+    this.routes.set(route.path, route);
+    };
+
+    get(path: string): Route | undefined {
+        return this.routes.get(path);
+    };
+    
+    set(path: string, route: Route): void {
+        this.routes.set(path, route);
+    }
 }
